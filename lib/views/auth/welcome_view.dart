@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
+import 'package:kitaabe/views/auth/sign_in_view.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
@@ -41,10 +42,18 @@ class _WelcomeViewState extends State<WelcomeView> {
                 CustomButton(
                   minWidth: double.maxFinite,
                   minHeight: 50,
-                  onPressed: () {},
-                  color: TColor.primary,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const SignInView(),
+                      ),
+                    );
+                  },
+                  boxDecoration: BoxDecoration(
+                    color: TColor.primary,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: Center(
                     child: Text(
                       'Sign in',
@@ -62,10 +71,18 @@ class _WelcomeViewState extends State<WelcomeView> {
                 CustomButton(
                   minWidth: double.maxFinite,
                   minHeight: 50,
-                  onPressed: () {},
-                  color: TColor.primary,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8),
+                  onPressed: () {
+                    // Navigator.of(context).pushReplacement(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const SignUpView(),
+                    //   ),
+                    // );
+                  },
+                  boxDecoration: BoxDecoration(
+                    color: TColor.primary,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: Center(
                     child: Text(
                       'Sign up',
@@ -83,7 +100,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                 Opacity(
                   opacity: 0.5,
                   child: SvgPicture.asset(
-                    'assets/images/on_3.svg',
+                    'assets/images/welcome.svg',
                     placeholderBuilder: (context) =>
                         CircularProgressIndicator(),
                     width: double.infinity,

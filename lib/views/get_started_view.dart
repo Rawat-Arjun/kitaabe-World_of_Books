@@ -28,9 +28,11 @@ class _GetStartedViewState extends State<GetStartedView> {
               ),
             );
           },
-          color: TColor.primary,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(8),
+          boxDecoration: BoxDecoration(
+            color: TColor.primary,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(8),
+          ),
           child: Center(
             child: Text(
               "Let's dive into Kittabe",

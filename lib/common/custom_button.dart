@@ -4,19 +4,16 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double? minHeight;
   final double? minWidth;
-  final Color color;
-  final BoxShape shape;
-  final BorderRadius? borderRadius;
+
+  final BoxDecoration? boxDecoration;
   final Widget child;
 
   const CustomButton({
     super.key,
-    required this.onPressed,
     this.minHeight,
     this.minWidth,
-    this.borderRadius,
-    required this.color,
-    required this.shape,
+    this.boxDecoration,
+    required this.onPressed,
     required this.child,
   });
 
@@ -27,11 +24,7 @@ class CustomButton extends StatelessWidget {
       child: Container(
         height: minHeight,
         width: minWidth,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: borderRadius,
-          shape: shape,
-        ),
+        decoration: boxDecoration,
         child: child,
       ),
     );
