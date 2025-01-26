@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
+import 'package:kitaabe/views/auth/forgot_password_view.dart';
+import 'package:kitaabe/views/home/home.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -14,6 +17,7 @@ class _SignInViewState extends State<SignInView> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isObsecure = true;
   bool isStaySignin = false;
   bool isSigninButtonPressed = false;
   @override
@@ -25,7 +29,10 @@ class _SignInViewState extends State<SignInView> {
         key: _formKey,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 40,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,11 +45,33 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextField(
+                Opacity(
+                  opacity: 0.5,
+                  child: SvgPicture.asset(
+                    'assets/images/sign_in.svg',
+                    placeholderBuilder: (context) =>
+                        CircularProgressIndicator(),
+                    width: double.infinity,
+                    height: media.height * 0.3,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  cursorColor: TColor.primary,
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: TColor.primary,
+                        width: 2,
+                      ),
+                    ),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 15,
@@ -52,25 +81,48 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextField(
+                TextFormField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  cursorColor: TColor.primary,
                   controller: passwordController,
-                  obscureText: true,
+                  obscureText: isObsecure,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: TColor.primary,
+                        width: 2,
+                      ),
+                    ),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 15,
                     ),
                     hintText: 'Password',
                     hintStyle: GoogleFonts.poppins(fontSize: 15),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObsecure = !isObsecure;
+                        });
+                      },
+                      icon: Icon(
+                        isObsecure == true
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 Row(
                   children: [
                     Checkbox(
+                      side: BorderSide(color: Colors.grey),
                       activeColor: TColor.primary,
                       value: isStaySignin,
                       onChanged: (value) {
@@ -79,22 +131,28 @@ class _SignInViewState extends State<SignInView> {
                         });
                       },
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 1),
                     Text(
                       'Stay Logged In',
                       style: GoogleFonts.poppins(
                         color: TColor.primaryLight,
+                        fontSize: 15,
                       ),
                     ),
                     Spacer(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordView(),
+                          ),
+                        );
+                      },
                       child: Text(
-                        'Forgot Your Password?',
+                        'Forgot Password?',
                         style: GoogleFonts.poppins(
                           color: TColor.primaryLight,
+                          fontSize: 15,
                         ),
                       ),
                     ),
@@ -111,7 +169,13 @@ class _SignInViewState extends State<SignInView> {
                     setState(() {
                       isSigninButtonPressed = true;
                     });
-
+                    if (mounted) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Home(),
+                        ),
+                      );
+                    }
                     await Future.delayed(
                       Duration(seconds: 1),
                     );
@@ -120,6 +184,7 @@ class _SignInViewState extends State<SignInView> {
                     });
                   },
                   boxDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
                     color: isSigninButtonPressed == false
                         ? Colors.white
                         : TColor.primary,

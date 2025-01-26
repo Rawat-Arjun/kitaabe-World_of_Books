@@ -19,7 +19,7 @@ class _GetStartedViewState extends State<GetStartedView> {
       backgroundColor: Colors.white,
       body: Center(
         child: CustomButton(
-          minWidth: media.width * 0.3,
+          minWidth: media.width * 0.5,
           minHeight: media.height * 0.1,
           onPressed: () {
             Navigator.of(context).pushReplacement(
@@ -31,7 +31,7 @@ class _GetStartedViewState extends State<GetStartedView> {
           boxDecoration: BoxDecoration(
             color: TColor.primary,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
             child: Text(

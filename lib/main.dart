@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kitaabe/common/color_extension.dart';
+import 'package:kitaabe/views/get_started_view.dart';
 import 'package:kitaabe/views/onboarding/onboarding_view.dart';
 
 void main() {
@@ -13,7 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Kitaabe',
-      home: OnboardingView(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: TColor.primary,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(
+                color: TColor.primary,
+                width: 2,
+              ),
+            ),
+            suffixIconColor: TColor.primary),
+      ),
+      home: const OnboardingView(),
     );
   }
 }
