@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
 import 'package:kitaabe/views/auth/forgot_password_view.dart';
-import 'package:kitaabe/views/home/home.dart';
+import 'package:kitaabe/views/home/home_view.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -172,7 +172,7 @@ class _SignInViewState extends State<SignInView> {
                     if (mounted) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => Home(),
+                          builder: (context) => const HomeView(),
                         ),
                       );
                     }
