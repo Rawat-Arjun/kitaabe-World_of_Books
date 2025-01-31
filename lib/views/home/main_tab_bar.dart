@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/views/home/home_view.dart';
+import 'package:kitaabe/views/search/search_view.dart';
 
 class MainTabBar extends StatefulWidget {
   const MainTabBar({super.key});
@@ -25,7 +26,7 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
         controller: tabController,
         children: [
           HomeView(),
-          Container(),
+          SearchView(),
           Container(),
           Container(),
         ],
