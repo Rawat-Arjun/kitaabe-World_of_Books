@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
+import 'package:kitaabe/views/search/search_focus_view.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -107,13 +108,22 @@ class _SearchViewState extends State<SearchView> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: TextFormField(
-          controller: searchController,
-          onTap: () {},
-          onTapOutside: (event) {
-            FocusScope.of(context).unfocus();
+          showCursor: false,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SearchFocusView(),
+              ),
+            );
           },
-          cursorColor: TColor.primary,
           decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: TColor.primary,
+                width: 2,
+              ),
+            ),
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 10,
@@ -121,13 +131,6 @@ class _SearchViewState extends State<SearchView> {
             hintText: 'Search Books or Authors',
             hintStyle: GoogleFonts.poppins(fontSize: 15),
             prefixIcon: Icon(Icons.search),
-            suffixIcon: SizedBox(
-              width: 40,
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.filter_alt),
-              ),
-            ),
           ),
         ),
       ),
