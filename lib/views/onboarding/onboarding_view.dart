@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/views/get_started_view.dart';
 
+import '../../common/list_data.dart';
+
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
 
@@ -14,26 +16,6 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   int page = 0;
   final pageController = PageController();
-  List pageArr = [
-    {
-      'title': "Discover a World of Stories",
-      'sub_text':
-          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
-      'img': 'assets/images/on_1.svg',
-    },
-    {
-      'title': "Personalized Just for You",
-      'sub_text':
-          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
-      'img': 'assets/images/on_2.svg',
-    },
-    {
-      'title': "Your Reading, Anytime, Anywhere",
-      'sub_text':
-          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
-      'img': 'assets/images/on_3.svg',
-    }
-  ];
 
   @override
   void initState() {
@@ -70,9 +52,9 @@ class _OnboardingViewState extends State<OnboardingView> {
         children: [
           PageView.builder(
             controller: pageController,
-            itemCount: pageArr.length,
+            itemCount: ListData().pageArr.length,
             itemBuilder: (context, index) {
-              var pObj = pageArr[index] as Map? ?? {};
+              var pObj = ListData().pageArr[index] as Map? ?? {};
               return Container(
                 width: media.width,
                 padding: EdgeInsets.symmetric(
@@ -146,9 +128,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: pageArr.map(
+                              children: ListData().pageArr.map(
                                 (e) {
-                                  var index = pageArr.indexOf(e);
+                                  var index = ListData().pageArr.indexOf(e);
                                   return Container(
                                     margin: const EdgeInsets.symmetric(
                                       horizontal: 4,
@@ -189,10 +171,6 @@ class _OnboardingViewState extends State<OnboardingView> {
               );
             },
           ),
-
-          // SizedBox(
-          //   height: media.height * 0.15,
-          // )
         ],
       ),
     );
