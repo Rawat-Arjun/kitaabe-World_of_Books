@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
 import 'package:kitaabe/views/auth/forgot_password_view.dart';
-import 'package:kitaabe/views/home/home.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -19,12 +18,13 @@ class _SignInViewState extends State<SignInView> {
   final passwordController = TextEditingController();
   bool isObsecure = true;
   bool isStaySignin = false;
-  bool isSigninButtonPressed = false;
+  bool isSigninButtonPressed = false; 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+    
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -169,13 +169,7 @@ class _SignInViewState extends State<SignInView> {
                     setState(() {
                       isSigninButtonPressed = true;
                     });
-                    if (mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Home(),
-                        ),
-                      );
-                    }
+                   
                     await Future.delayed(
                       Duration(seconds: 1),
                     );
