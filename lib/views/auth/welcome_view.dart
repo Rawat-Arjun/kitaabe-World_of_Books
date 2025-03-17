@@ -148,7 +148,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                     ],
                   ),
                 ),
-                SizedBox(height: 15),
+                Spacer(),
                 Opacity(
                   opacity: 0.5,
                   child: SvgPicture.asset(

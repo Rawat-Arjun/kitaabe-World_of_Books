@@ -44,3 +44,4 @@ class GetStartedView extends StatelessWidget {
     );
   }
 }
+}
