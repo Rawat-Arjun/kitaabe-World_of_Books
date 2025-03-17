@@ -19,12 +19,13 @@ class _SignInViewState extends State<SignInView> {
   final passwordController = TextEditingController();
   bool isObsecure = true;
   bool isStaySignin = false;
-  bool isSigninButtonPressed = false;
+  bool isSigninButtonPressed = false; 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+    
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
