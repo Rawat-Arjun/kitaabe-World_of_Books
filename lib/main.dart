@@ -19,16 +19,14 @@ class MyApp extends StatelessWidget {
           seedColor: TColor.primary,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(
-              color: TColor.primary,
-              width: 2,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: TColor.primary,
+                width: 2,
+              ),
             ),
-          ),
-          suffixIconColor: TColor.primary,
-          prefixIconColor: TColor.primary,
-        ),
+            suffixIconColor: TColor.primary),
       ),
       home: const MainTabBar(),
     );
