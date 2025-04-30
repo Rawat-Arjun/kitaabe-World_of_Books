@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/list_data.dart';
-import 'package:kitaabe/views/home/main_tab_bar.dart';
 
-class FAQsView extends StatefulWidget {
+import '../../main_tab_bar.dart';
+
+class FAQsView extends StatelessWidget {
   const FAQsView({super.key});
 
   @override
-  State<FAQsView> createState() => _FAQsViewState();
-}
-
-class _FAQsViewState extends State<FAQsView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
+          title: Text(
+            'Frequently Asked Questions (FAQs)',
+            maxLines: 2,
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              color: TColor.text,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
@@ -34,24 +38,16 @@ class _FAQsViewState extends State<FAQsView> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 20,
+            horizontal: 12,
+            vertical: 10,
           ),
           child: Column(
             children: [
-              Text(
-                'Frequently Asked Questions (FAQs)',
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  color: TColor.text,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: ListData().faqs.length,
+                  itemCount: ListData.faqs.length,
                   itemBuilder: (context, index) {
-                    var fObj = ListData().faqs[index] as Map;
+                    var fObj = ListData.faqs[index] as Map;
                     return Container(
                       padding: EdgeInsets.all(15),
                       margin: EdgeInsets.only(top: 20),

@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/list_data.dart';
-import 'package:kitaabe/views/home/drawer/book%20detail%20page/book_detail_page.dart';
 import 'package:kitaabe/views/home/main_tab_bar.dart';
 
 class MyBooksView extends StatefulWidget {
@@ -42,18 +41,12 @@ class _MyBooksViewState extends State<MyBooksView> {
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: ListData().reviewsList.length,
+          itemCount: ListData.reviewsList.length,
           itemBuilder: (context, index) {
-            var rObj = ListData().reviewsList[index] as Map;
+            var rObj = ListData.reviewsList[index] as Map;
 
             return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const BookDetailPage(),
-                  ),
-                );
-              },
+              onTap: () {},
               child: Container(
                 margin: EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(

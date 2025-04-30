@@ -5,6 +5,7 @@ import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
 import 'package:kitaabe/views/auth/sign_in_view.dart';
 import 'package:kitaabe/views/auth/sign_up_view.dart';
+import 'package:kitaabe/views/home/main_tab_bar.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
@@ -30,7 +31,7 @@ class _WelcomeViewState extends State<WelcomeView> {
             child: Column(
               children: [
                 Text(
-                  "Books For\nEveryone's Taste",
+                  "Books for\nEvery Taste",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                       color: TColor.primary,
@@ -120,7 +121,11 @@ class _WelcomeViewState extends State<WelcomeView> {
                 CustomButton(
                   minWidth: double.maxFinite,
                   minHeight: 50,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => MainTabBar(),
+                    ));
+                  },
                   boxDecoration: BoxDecoration(
                     color: TColor.primary,
                     borderRadius: BorderRadius.circular(4),
@@ -148,7 +153,8 @@ class _WelcomeViewState extends State<WelcomeView> {
                     ],
                   ),
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
+                Spacer(),
                 Opacity(
                   opacity: 0.5,
                   child: SvgPicture.asset(
@@ -156,10 +162,13 @@ class _WelcomeViewState extends State<WelcomeView> {
                     placeholderBuilder: (context) =>
                         CircularProgressIndicator(),
                     width: double.infinity,
-                    height: media.height * 0.4,
+                    height: media.height * 0.35,
                     fit: BoxFit.fill,
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           )

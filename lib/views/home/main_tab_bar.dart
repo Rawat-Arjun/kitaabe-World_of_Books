@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitaabe/common/color_extension.dart';
-import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
+import 'package:kitaabe/views/home/drawer/favourite/favourite_view.dart';
 import 'package:kitaabe/views/home/home_view.dart';
 import 'package:kitaabe/views/home/drawer/my%20account/my_account_view.dart';
 import 'package:kitaabe/views/search/search_view.dart';
@@ -27,10 +27,10 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
       body: TabBarView(
         controller: tabController,
         children: [
-          HomeView(),
-          SearchView(),
-          MyAccountView(),
-          FAQsView(),
+          const HomeView(),
+          const SearchView(),
+          const MyAccountView(),
+          const FavouriteView(),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

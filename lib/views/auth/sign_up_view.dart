@@ -24,9 +24,7 @@ class _SignUpViewState extends State<SignUpView> {
   bool isSignUpButtonPressed = false;
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -190,55 +188,29 @@ class _SignUpViewState extends State<SignUpView> {
                 SizedBox(
                   height: 15,
                 ),
-                CustomButton(
-                  minWidth: double.infinity,
-                  minHeight: media.height * 0.05,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      isSignUpButtonPressed = true;
-                    });
-                    if (mounted) {
-                      Navigator.of(context).push(
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 10),
+                  child: CustomButton(
+                    minHeight: 50,
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const SignInView(),
                         ),
                       );
-                    }
-                    await Future.delayed(
-                      Duration(seconds: 1),
-                    );
-                    setState(() {
-                      isSignUpButtonPressed = false;
-                    });
-                  },
-                  boxDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: isSignUpButtonPressed == false
-                        ? Colors.white
-                        : TColor.primary,
-                    border: Border.all(
+                    },
+                    boxDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
                       color: TColor.primary,
                     ),
-                    boxShadow: [
-                      isSignUpButtonPressed == false
-                          ? BoxShadow()
-                          : BoxShadow(
-                              color: Color.fromRGBO(33, 33, 33, 0.5),
-                              spreadRadius: 2,
-                              blurRadius: 6,
-                              offset: Offset(0, 3),
-                            ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Sign up',
-                      style: GoogleFonts.poppins(
-                        color: isSignUpButtonPressed == false
-                            ? TColor.primary
-                            : Colors.white,
-                        fontSize: 15,
+                    child: Center(
+                      child: Text(
+                        "Sign up",
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),

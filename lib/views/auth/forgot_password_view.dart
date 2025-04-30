@@ -20,7 +20,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Form(
         key: _formkey,
         child: SingleChildScrollView(
@@ -77,49 +76,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 SizedBox(
                   height: 15,
                 ),
-                CustomButton(
-                  minWidth: double.infinity,
-                  minHeight: media.height * 0.05,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      isButtonPressed = true;
-                    });
-
-                    await Future.delayed(
-                      Duration(seconds: 1),
-                    );
-                    setState(() {
-                      isButtonPressed = false;
-                    });
-                  },
-                  boxDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: isButtonPressed == false
-                        ? Colors.white
-                        : TColor.primary,
-                    border: Border.all(
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 10),
+                  child: CustomButton(
+                    minHeight: 50,
+                    onPressed: () {},
+                    boxDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
                       color: TColor.primary,
                     ),
-                    boxShadow: [
-                      isButtonPressed == false
-                          ? BoxShadow()
-                          : BoxShadow(
-                              color: Color.fromRGBO(33, 33, 33, 0.5),
-                              spreadRadius: 2,
-                              blurRadius: 6,
-                              offset: Offset(0, 3),
-                            ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Submit',
-                      style: GoogleFonts.poppins(
-                        color: isButtonPressed == false
-                            ? TColor.primary
-                            : Colors.white,
-                        fontSize: 15,
+                    child: Center(
+                      child: Text(
+                        "Submit",
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),

@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:kitaabe/views/home/drawer/contact%20us/contact_us_view.dart';
+import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
+import 'package:kitaabe/views/home/drawer/logout/logout_view.dart';
+import 'package:kitaabe/views/home/drawer/profile/profile_view.dart';
+import 'package:kitaabe/views/home/drawer/terms%20and%20policies/terms_and_policies_view.dart';
 
 class ListData {
-  final faqs = [
+  static List onboardingPageArr = [
+    {
+      'title': "Discover a World of Stories",
+      'sub_text':
+          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
+      'img': 'assets/images/on_1.svg',
+    },
+    {
+      'title': "Personalized Just for You",
+      'sub_text':
+          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
+      'img': 'assets/images/on_2.svg',
+    },
+    {
+      'title': "Your Reading, Anytime, Anywhere",
+      'sub_text':
+          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
+      'img': 'assets/images/on_3.svg',
+    }
+  ];
+
+  static List<Map<String, String>> faqs = [
     {
       "question": "How do I enable night mode?",
       "answer":
@@ -44,45 +70,7 @@ class ListData {
     },
   ];
 
-  final bookList = [
-    {
-      "name": "To Kill A Mockingbird",
-      "author": "Harper Lee",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-      "rating": "5",
-    },
-    {
-      "name": "Invisible Man",
-      "author": "Ralph Ellison",
-      "img":
-          "https://m.media-amazon.com/images/I/41Gh5-nfqKL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "img":
-          "https://rukminim2.flixcart.com/image/416/416/kgiaykw0/book/4/2/9/the-great-gatsby-original-imafwqc4fdxy5ymr.jpeg",
-      "rating": "5",
-    },
-    {
-      "name": "The Fault in Our Stars",
-      "author": "John Green",
-      "img":
-          "https://m.media-amazon.com/images/I/51r27MDeQQL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "Lord of The Flies",
-      "author": "William Golding",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/en/9/9b/LordOfTheFliesBookCover.jpg",
-      "rating": "4",
-    },
-  ];
-
-  final reviewsList = [
+  static List<Map<String, String>> reviewsList = [
     {
       "book_name": "book name",
       "author_name": "author name",
@@ -121,7 +109,7 @@ class ListData {
     },
   ];
 
-  final genresList = [
+  static List<Map<String, String>> genresList = [
     {
       "name": "Romance",
       "img":
@@ -149,42 +137,45 @@ class ListData {
     },
   ];
 
-  final menuList = [
-    {
-      "name": "My Books",
-      "icon": Icons.book,
-    },
+  static List<Map<String, dynamic>> drawerList = [
     {
       "name": "Profile",
       "icon": Icons.person,
+      "route": MaterialPageRoute(
+        builder: (context) => const ProfileView(),
+      ),
     },
     {
-      "name": "Favourite",
-      "icon": Icons.favorite_rounded,
-    },
-    {
-      "name": "Settings",
-      "icon": Icons.settings,
-    },
-    {
-      "name": "Account",
-      "icon": Icons.account_circle,
-    },
-    {
-      "name": "Help",
-      "icon": Icons.info,
+      "name": "Contact Us",
+      "icon": Icons.call,
+      "route": MaterialPageRoute(
+        builder: (context) => ContactUsView(),
+      ),
     },
     {
       "name": "FAQs",
       "icon": Icons.question_answer,
+      "route": MaterialPageRoute(
+        builder: (context) => const FAQsView(),
+      ),
+    },
+    {
+      "name": "Terms N Policies",
+      "icon": Icons.policy,
+      "route": MaterialPageRoute(
+        builder: (context) => const TermsAndPoliciesView(),
+      ),
     },
     {
       "name": "Log Out",
       "icon": Icons.logout,
+      "route": MaterialPageRoute(
+        builder: (context) => const LogoutView(),
+      ),
     },
   ];
 
-  final pageArr = [
+  static List<Map<String, String>> pageArr = [
     {
       'title': "Discover a World of Stories",
       'sub_text':
@@ -205,9 +196,7 @@ class ListData {
     }
   ];
 
-  final tagList = ['Genres', 'Best Sellers', 'Trending', 'New Release'];
-
-  final bookGenresList = [
+  static List<Map<String, String>> bookGenresList = [
     {
       "name": "Fiction & Sci-Fi",
       "img":
@@ -257,7 +246,7 @@ class ListData {
     },
   ];
 
-  final genresColor = [
+  static List<Color> genresColor = [
     Colors.blue,
     Colors.deepPurpleAccent,
     Colors.green,
@@ -268,5 +257,53 @@ class ListData {
     Colors.brown,
     Colors.black,
     Colors.grey,
+  ];
+
+  static List<Map<String, String>> termsAndConditionsList = [
+    {
+      "term": "Introduction",
+      "policy":
+          "Welcome to Kitaabe, an online book reading platform. By using this app, you agree to the following terms and policies.",
+    },
+    {
+      "term": "User Accounts & Responsibilities",
+      "policy":
+          "You must provide accurate information when signing up. Misuse, unauthorized access, or violation of community guidelines may result in account suspension.",
+    },
+    {
+      "term": "Content Usage & Restrictions",
+      "policy":
+          "All book content is for personal use only. You may not copy, distribute, or reproduce any material without permission.",
+    },
+    {
+      "term": "Privacy Policy",
+      "policy":
+          "We collect user data such as email, bookmarks, and reviews to improve user experience. We do not sell or misuse personal data.",
+    },
+    {
+      "term": "Reviews & Community Guidelines",
+      "policy":
+          "Users must ensure that their reviews are respectful and relevant. Any offensive or misleading content may be removed.",
+    },
+    {
+      "term": "Account Deletion & Data Removal",
+      "policy":
+          "You can request to delete your account from the profile settings. Some data may be retained for security and legal reasons.",
+    },
+    {
+      "term": "Disclaimer & Liability",
+      "policy":
+          "This app is provided 'as is' without any warranties. We are not responsible for issues caused by third-party content.",
+    },
+    {
+      "term": "Updates & Changes",
+      "policy":
+          "These terms may be updated from time to time. Continued use of the app indicates acceptance of the new terms.",
+    },
+    {
+      "term": "Contact Information",
+      "policy":
+          "If you have any questions about these terms, please contact us at arjunrawat12121@gmail.com.",
+    },
   ];
 }

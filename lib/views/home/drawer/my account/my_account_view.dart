@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
-import 'package:kitaabe/common/custom_carousel.dart';
+import 'package:kitaabe/common/book_list_carousel.dart';
 import 'package:kitaabe/common/list_data.dart';
 import 'package:kitaabe/views/home/main_tab_bar.dart';
 
-class MyAccountView extends StatefulWidget {
+class MyAccountView extends StatelessWidget {
   const MyAccountView({super.key});
 
   @override
-  State<MyAccountView> createState() => _MyAccountViewState();
-}
-
-class _MyAccountViewState extends State<MyAccountView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -162,9 +156,8 @@ class _MyAccountViewState extends State<MyAccountView> {
                 ],
               ),
               SizedBox(height: 30),
-              CustomCarousel(
-                listLength: ListData().bookList.length,
-                listItem: ListData().bookList,
+              BookListCarousel(
+                bookList: [],
                 color: TColor.subText,
                 title: 'My Books',
                 isRating: false,
@@ -180,9 +173,9 @@ class _MyAccountViewState extends State<MyAccountView> {
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: ListData().reviewsList.length,
+                itemCount: ListData.reviewsList.length,
                 itemBuilder: (context, index) {
-                  var rObj = ListData().reviewsList[index] as Map;
+                  var rObj = ListData.reviewsList[index] as Map;
 
                   return Container(
                     margin: EdgeInsets.only(top: 10, bottom: 10),

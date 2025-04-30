@@ -1,125 +1,115 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 
 class SearchFocusView extends StatefulWidget {
-  const SearchFocusView({super.key});
+  final String query;
+  const SearchFocusView({
+    super.key,
+    required this.query,
+  });
 
   @override
   State<SearchFocusView> createState() => _SearchFocusViewState();
 }
 
 class _SearchFocusViewState extends State<SearchFocusView> {
-  final TextEditingController searchController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
+  List<Map<String, dynamic>> books = [];
+  final String baseUrl = "https://www.googleapis.com/books/v1/volumes";
+  final String apiKey = "AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA";
 
-  List<String> searchHistory = [];
+  Future<void> searchBooks(String query) async {
+    if (query.isEmpty) return; // ✅ Skip empty queries
 
-  void _submitSearch(String query) {
-    if (query.isNotEmpty && !searchHistory.contains(query)) {
-      setState(() {
-        searchHistory.insert(0, query); // Add new search at the top
-      });
+    final url = "$baseUrl?q=${Uri.encodeComponent(query)}&key=$apiKey";
+
+    try {
+      final response = await Dio().get(url);
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+
+        if (data['items'] != null && data['items'].isNotEmpty) {
+          final List<Map<String, dynamic>> results = [];
+
+          for (var item in data['items']) {
+            final volumeInfo = item['volumeInfo'];
+
+            results.add({
+              'title': volumeInfo['title'] ?? 'No Title',
+              'authors':
+                  (volumeInfo['authors'] ?? ['Unknown Author']).join(', '),
+              'thumbnail': volumeInfo['imageLinks']?['thumbnail'] ??
+                  'https://via.placeholder.com/150', // Default image if no thumbnail
+            });
+          }
+
+          setState(() => books = results);
+        } else {
+          setState(() => books = []);
+        }
+      } else {
+        throw Exception('Failed to load books');
+      }
+    } catch (e) {
+      print('Error: $e');
+      setState(() => books = []);
     }
-    searchController.clear(); // Clear input field after submission
-    _focusNode.unfocus(); // Hide keyboard
-  }
-
-  void _deleteSearch(String query) {
-    setState(() {
-      searchHistory.remove(query);
-    });
   }
 
   @override
+  void initState() {
+    super.initState();
+    searchBooks(widget.query);
+  }
+
+  bool isCleared = false;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          cursorColor: TColor.primary,
-          controller: searchController,
-          focusNode: _focusNode,
-          decoration: InputDecoration(
-            hintText: "Search",
-            border: UnderlineInputBorder(),
-            prefixIcon: const Icon(Icons.search),
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: () => searchController.clear(),
-            ),
-          ),
-          onSubmitted: _submitSearch, // handle search submission
-          onTapOutside: (event) {
-            _focusNode.unfocus(); // unfocus search field
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (searchHistory.isNotEmpty) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      "Recent Searches",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15, fontWeight: FontWeight.w700),
+      body: isCleared
+          ? Center(
+              child: Text('No Book Found !'),
+            )
+          : ListView.builder(
+              itemCount: books.length,
+              itemBuilder: (context, index) {
+                final book = books[index];
+                return Card(
+                  color: TColor.primaryLight,
+                  margin: const EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 4,
+                  child: ListTile(
+                    onTap: () {},
+                    focusColor: TColor.primary,
+                    contentPadding: const EdgeInsets.all(10),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        book['thumbnail'],
+                        width: 60,
+                        height: 90,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          searchHistory.clear(); // clear all searches
-                        });
-                      },
-                      child: Text(
-                        'Clear All',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: TColor.primary,
-                        ),
+                    title: Text(
+                      book['title'],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: searchHistory.length,
-                  itemBuilder: (context, index) {
-                    final query = searchHistory[index];
-                    return Card(
-                      color: TColor.primaryLight,
-                      child: ListTile(
-                        leading: const Icon(Icons.history),
-                        title: Text(
-                          query,
-                          style: GoogleFonts.poppins(
-                            fontSize: 15,
-                          ),
-                        ),
-                        onTap: () {
-                          searchController.text = query;
-                        },
-                        trailing: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () => _deleteSearch(query),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
+                    ),
+                    subtitle: Text(
+                      'Author(s): ${book['authors']}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
