@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
 import 'package:kitaabe/common/list_data.dart';
@@ -17,26 +16,22 @@ class _TermsAndPoliciesViewState extends State<TermsAndPoliciesView> {
   bool isAllowTerms = false;
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.primary,
         elevation: 0,
         title: Text(
           "Terms & Policies",
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            color: TColor.text,
-            fontWeight: FontWeight.w700,
-          ),
+          style: textTheme.titleLarge,
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: TColor.text),
+          icon: Icon(
+            Icons.arrow_back,
+            color: TColor.text,
+          ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const MainTabBar(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -60,17 +55,17 @@ class _TermsAndPoliciesViewState extends State<TermsAndPoliciesView> {
                 ),
                 ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: ListData.termsAndConditionsList.length,
                   itemBuilder: (context, index) {
-                    var termsObj =
+                    final termsList =
                         ListData.termsAndConditionsList[index] as Map;
                     return Container(
-                      padding: EdgeInsets.all(15),
-                      margin: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.all(15),
+                      margin: const EdgeInsets.only(top: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: TColor.primaryLight,
+                        color: TColor.primary,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,23 +73,15 @@ class _TermsAndPoliciesViewState extends State<TermsAndPoliciesView> {
                           Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 5),
                             child: Text(
-                              ' * ${termsObj['term']}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                color: TColor.text,
-                                fontWeight: FontWeight.w700,
-                              ),
+                              ' * ${termsList['term']}',
+                              style: textTheme.labelMedium,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
-                              termsObj['policy'],
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                color: TColor.subText,
-                                fontWeight: FontWeight.w400,
-                              ),
+                              termsList['policy'],
+                              style: textTheme.bodySmall,
                             ),
                           ),
                         ],
@@ -115,14 +102,15 @@ class _TermsAndPoliciesViewState extends State<TermsAndPoliciesView> {
                     ),
                     Text(
                       'I agree to the terms and conditions',
-                      style: GoogleFonts.poppins(
-                        color: TColor.primaryLight,
-                      ),
+                      style: textTheme.bodySmall,
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                    bottom: 10,
+                  ),
                   child: CustomButton(
                     minHeight: 50,
                     onPressed: () {
@@ -139,11 +127,7 @@ class _TermsAndPoliciesViewState extends State<TermsAndPoliciesView> {
                     child: Center(
                       child: Text(
                         "Accept & Continue",
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: textTheme.bodySmall,
                       ),
                     ),
                   ),

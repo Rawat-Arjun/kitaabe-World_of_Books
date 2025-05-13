@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
-
+import 'package:kitaabe/util/forgot_password_controller.dart';
 import '../../common/custom_button.dart';
+import '../../common/custom_text_field.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -14,17 +14,34 @@ class ForgotPasswordView extends StatefulWidget {
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _formkey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  bool isButtonPressed = false;
+  late ForgotPasswordController controller;
+
+  @override
+  void initState() {
+    controller = ForgotPasswordController(
+      onStateChanged: () {
+        setState(() {});
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Form(
         key: _formkey,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 40,
             ),
@@ -33,14 +50,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               children: [
                 Text(
                   'Forgot Password',
-                  style: GoogleFonts.poppins(
-                    color: TColor.text,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: textTheme.titleLarge,
                 ),
                 SizedBox(
-                  height: media.height * 0.05,
+                  height: mediaQuery.height * 0.05,
                 ),
                 Opacity(
                   opacity: 0.5,
@@ -49,54 +62,57 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     placeholderBuilder: (context) =>
                         CircularProgressIndicator(),
                     width: double.infinity,
-                    height: media.height * 0.3,
+                    height: mediaQuery.height * 0.3,
                     fit: BoxFit.fill,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                TextFormField(
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  controller: emailController,
-                  cursorColor: TColor.primary,
+                CustomTextField(
+                  text: 'Email Address',
+                  controller: controller.emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 15,
-                    ),
-                    hintText: 'Email Address',
-                    hintStyle: GoogleFonts.poppins(fontSize: 15),
-                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '* Email Address is required';
+                    }
+                    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                    if (!emailRegex.hasMatch(value)) {
+                      return '* Enter a valid email address';
+                    }
+                    return null;
+                  },
                 ),
-                SizedBox(
-                  height: 15,
+                const SizedBox(
+                  height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: CustomButton(
-                    minHeight: 50,
-                    onPressed: () {},
-                    boxDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: TColor.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Submit",
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                controller.isLoading
+                    ? Center(
+                        child: const CircularProgressIndicator(),
+                      )
+                    : CustomButton(
+                        minHeight: 50,
+                        onPressed: () async {
+                          if (!_formkey.currentState!.validate()) return;
+
+                          await controller.resetPassword();
+                          if (controller.successMessage.isNotEmpty) {
+                            controller.openEmailSentDialog(context);
+                          }
+                          controller.emailController.text = '';
+                        },
+                        boxDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: TColor.primary,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Submit",
+                            style: textTheme.bodySmall,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

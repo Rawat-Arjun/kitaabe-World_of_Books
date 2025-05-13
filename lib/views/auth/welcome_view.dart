@@ -1,11 +1,14 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:kitaabe/common/color_extension.dart';
-import 'package:kitaabe/common/custom_button.dart';
+import 'package:kitaabe/util/storage/auth_service.dart';
 import 'package:kitaabe/views/auth/sign_in_view.dart';
 import 'package:kitaabe/views/auth/sign_up_view.dart';
 import 'package:kitaabe/views/home/main_tab_bar.dart';
+import '../../common/color_extension.dart';
+import '../../common/custom_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({super.key});
@@ -15,161 +18,218 @@ class WelcomeView extends StatefulWidget {
 }
 
 class _WelcomeViewState extends State<WelcomeView> {
+  bool _isSigningIn = false;
+  final bool _rememberMe = false;
+  final AuthService _authService = AuthService();
+  User? user;
+  // Method to handle the Google Sign-In process
+  Future<void> _handleSignInGoogle() async {
+    setState(() => _isSigningIn = true);
+    try {
+      final googleSignedInUser = await _authService.signInWithGoogle(
+        rememberMe: _rememberMe,
+      );
+      if (googleSignedInUser != null) {
+        log("User signed in: ${googleSignedInUser.displayName}");
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const MainTabBar(),
+          ),
+        );
+        setState(() => user = googleSignedInUser);
+      } else {
+        log("Sign-in failed");
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const WelcomeView(),
+        ));
+      }
+    } catch (e) {
+      log("Sign-in error: $e");
+    } finally {
+      setState(() => _isSigningIn = false);
+    }
+  }
+
+  // Method to check if the user is already signed in
+  Future<void> _checkIfUserIsSignedIn() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      setState(() {
+        user = currentUser;
+      });
+      // If the user is signed in, navigate to the MainTabBar
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const MainTabBar(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfUserIsSignedIn(); // Check if the user is signed in when the view is loaded
+  }
+
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            width: media.width,
-            padding: EdgeInsets.symmetric(
+            width: mediaQuery.width,
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 40,
             ),
-            child: Column(
-              children: [
-                Text(
-                  "Books for\nEvery Taste",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 20,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    "Books for\nEvery Taste",
+                    textAlign: TextAlign.center,
+                    style: textTheme.headlineLarge,
+                  ),
+                  SizedBox(
+                    height: mediaQuery.height * 0.05,
+                  ),
+                  CustomButton(
+                    minWidth: double.maxFinite,
+                    minHeight: 50,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignInView(),
+                        ),
+                      );
+                    },
+                    boxDecoration: BoxDecoration(
                       color: TColor.primary,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700),
-                ),
-                SizedBox(
-                  height: media.height * 0.05,
-                ),
-                CustomButton(
-                  minWidth: double.maxFinite,
-                  minHeight: 50,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SignInView(),
-                      ),
-                    );
-                  },
-                  boxDecoration: BoxDecoration(
-                    color: TColor.primary,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Sign in with Email',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sign in with Email',
+                        style: textTheme.titleMedium
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(
-                  minWidth: double.maxFinite,
-                  minHeight: 50,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpView(),
-                      ),
-                    );
-                  },
-                  boxDecoration: BoxDecoration(
-                    color: TColor.primary,
-                    borderRadius: BorderRadius.circular(4),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  child: Center(
-                    child: Text(
-                      'Sign up with Email',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                  CustomButton(
+                    minWidth: double.maxFinite,
+                    minHeight: 50,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpView(),
+                        ),
+                      );
+                    },
+                    boxDecoration: BoxDecoration(
+                      color: TColor.primary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sign up with Email',
+                        style: textTheme.titleMedium
+                            ?.copyWith(color: Colors.white),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'OR',
-                      style: GoogleFonts.poppins(color: TColor.primaryLight),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                CustomButton(
-                  minWidth: double.maxFinite,
-                  minHeight: 50,
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => MainTabBar(),
-                    ));
-                  },
-                  boxDecoration: BoxDecoration(
-                    color: TColor.primary,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(height: 15),
+                  Row(
                     children: [
-                      SvgPicture.network(
-                        'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
-                        placeholderBuilder: (context) =>
-                            CircularProgressIndicator(),
-                        width: double.infinity,
-                        height: 20,
-                        fit: BoxFit.fill,
+                      Expanded(
+                        child: const Divider(
+                          color: Colors.grey,
+                          thickness: 1,
+                        ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
-                        'Continue with Google',
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
+                        'OR',
+                        style: textTheme.bodySmall,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: const Divider(
+                          color: Colors.grey,
+                          thickness: 1,
                         ),
                       ),
                     ],
                   ),
-                ),
-                // SizedBox(height: 15),
-                Spacer(),
-                Opacity(
-                  opacity: 0.5,
-                  child: SvgPicture.asset(
-                    'assets/images/welcome.svg',
-                    placeholderBuilder: (context) =>
-                        CircularProgressIndicator(),
-                    width: double.infinity,
-                    height: media.height * 0.35,
-                    fit: BoxFit.fill,
+                  const SizedBox(height: 15),
+                  _isSigningIn
+                      ? CustomButton(
+                          minWidth: double.maxFinite,
+                          minHeight: 50,
+                          onPressed: () {},
+                          boxDecoration: BoxDecoration(
+                            color: TColor.primary,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : user == null
+                          ? CustomButton(
+                              minWidth: double.maxFinite,
+                              minHeight: 50,
+                              onPressed: _handleSignInGoogle,
+                              boxDecoration: BoxDecoration(
+                                color: TColor.primary,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.network(
+                                    'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
+                                    placeholderBuilder: (context) =>
+                                        const CircularProgressIndicator(),
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'Continue with Google',
+                                    style: textTheme.titleMedium?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
+                  const Spacer(),
+                  Opacity(
+                    opacity: 0.5,
+                    child: SvgPicture.asset(
+                      'assets/images/welcome.svg',
+                      placeholderBuilder: (context) =>
+                          const CircularProgressIndicator(),
+                      width: double.infinity,
+                      height: mediaQuery.height * 0.35,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
+                ],
+              ),
             ),
           )
         ],

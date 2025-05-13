@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
-
-import '../../main_tab_bar.dart';
 
 class ContactUsView extends StatefulWidget {
   const ContactUsView({super.key});
@@ -32,26 +30,19 @@ class _ContactUsViewState extends State<ContactUsView> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const MainTabBar(),
-              ),
-            );
+            Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
         elevation: 0,
         title: Text(
           'Contact Us',
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: TColor.text,
-          ),
+          style: textTheme.titleLarge,
         ),
       ),
       body: Padding(
@@ -61,6 +52,17 @@ class _ContactUsViewState extends State<ContactUsView> {
         ),
         child: Column(
           children: [
+            Center(
+              child: Opacity(
+                opacity: 0.5,
+                child: SvgPicture.asset(
+                  'assets/images/contact_us.svg',
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
             TextFormField(
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
@@ -69,7 +71,7 @@ class _ContactUsViewState extends State<ContactUsView> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
@@ -77,15 +79,15 @@ class _ContactUsViewState extends State<ContactUsView> {
                     width: 2,
                   ),
                 ),
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: 15,
                   vertical: 15,
                 ),
                 hintText: 'Email Address',
-                hintStyle: GoogleFonts.poppins(fontSize: 15),
+                hintStyle: textTheme.bodySmall,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
@@ -97,7 +99,7 @@ class _ContactUsViewState extends State<ContactUsView> {
               controller: messageController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
@@ -105,29 +107,39 @@ class _ContactUsViewState extends State<ContactUsView> {
                     width: 2,
                   ),
                 ),
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: 15,
                   vertical: 15,
                 ),
                 hintText: 'Message',
-                hintStyle: GoogleFonts.poppins(fontSize: 15),
+                hintStyle: textTheme.bodySmall,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             CustomButton(
-              onPressed: () {
+              onPressed: () async {
                 emailController.text = '';
                 messageController.text = '';
-                Future.delayed(
+                await Future.delayed(
                   Duration(
                     seconds: 2,
                   ),
                   () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text('Message submitted successfully !')));
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Message submitted successfully !',
+                            style: textTheme.bodySmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   },
                 );
               },
@@ -135,15 +147,12 @@ class _ContactUsViewState extends State<ContactUsView> {
               minWidth: 200,
               boxDecoration: BoxDecoration(
                 color: TColor.primary,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: Center(
                 child: Text(
                   'Submit',
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
+                  style: textTheme.bodySmall,
                 ),
               ),
             )

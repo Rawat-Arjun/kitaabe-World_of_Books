@@ -1,10 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:kitaabe/service/book_model.dart';
-
-import 'color_extension.dart';
+import 'package:kitaabe/util/model/book_model.dart';
+import 'package:kitaabe/views/home/book%20detail/book_detail_page.dart';
 
 class BookListCarousel extends StatelessWidget {
   final List<BookModel> bookList;
@@ -22,17 +19,14 @@ class BookListCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final media = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: GoogleFonts.poppins(
-            color: color,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-          ),
+          style: textTheme.titleLarge,
         ),
         SizedBox(
           width: media.width,
@@ -45,8 +39,16 @@ class BookListCarousel extends StatelessWidget {
                 height: media.width * 0.3,
                 child: Column(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => BookDetailPage(book: book),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
@@ -54,72 +56,36 @@ class BookListCarousel extends StatelessWidget {
                               offset: Offset(0, 1),
                               blurRadius: 5,
                             ),
-                          ]),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          // data['items']['volumeInfo']['imageLinks']
-                          //     ['thumbnail'],
-                          book.thumbnail.isNotEmpty ? book.thumbnail : '',
-                          fit: BoxFit.fill,
-                          height: media.width * 0.35,
-                          width: media.width * 0.25,
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            book.thumbnail.isNotEmpty ? book.thumbnail : '',
+                            fit: BoxFit.fill,
+                            height: media.width * 0.35,
+                            width: media.width * 0.25,
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      // data['items']['volumeInfo']['title'],
                       book.title.isNotEmpty ? book.title : 'No title Found',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        color: TColor.text,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: textTheme.labelMedium,
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      // data['items']['valueInfo']['authors'],
                       book.author.isNotEmpty ? book.author : 'Unknown Author',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        color: TColor.text,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: textTheme.labelSmall,
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 5),
-                    isRating
-                        ? IgnorePointer(
-                            ignoring: true,
-                            child: RatingBar.builder(
-                              direction: Axis.horizontal,
-                              // initialRating: double.tryParse(
-                              //         data['volumeInfo']['averageRating']) ??
-                              //     1,
-                              initialRating: book.averageRating,
-                              minRating: 0,
-                              maxRating: 5,
-                              unratedColor: Colors.grey,
-                              glowColor: TColor.primary,
-                              itemSize: 15,
-                              itemPadding: EdgeInsets.symmetric(horizontal: 1),
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemBuilder: (context, index) => Icon(
-                                Icons.star,
-                                color: TColor.primary,
-                              ),
-                              onRatingUpdate: (rating) {},
-                            ),
-                          )
-                        : SizedBox(),
                   ],
                 ),
               );

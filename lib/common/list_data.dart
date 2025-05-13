@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kitaabe/views/home/drawer/contact%20us/contact_us_view.dart';
 import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
 import 'package:kitaabe/views/home/drawer/logout/logout_view.dart';
-import 'package:kitaabe/views/home/drawer/profile/profile_view.dart';
 import 'package:kitaabe/views/home/drawer/terms%20and%20policies/terms_and_policies_view.dart';
 
 class ListData {
@@ -70,130 +69,32 @@ class ListData {
     },
   ];
 
-  static List<Map<String, String>> reviewsList = [
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review":
-          "this is the review by user  this is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the re  this is the review by user this is the review by userthis is the review by userthis is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-  ];
-
-  static List<Map<String, String>> genresList = [
-    {
-      "name": "Romance",
-      "img":
-          "https://i0.wp.com/readwithstefani.com/wp-content/uploads/2021/12/collage-1.png"
-    },
-    {
-      "name": "Fiction",
-      "img":
-          "https://www.scholastic.com/content/dam/scholastic/educators/book-lists/080824-nonfiction-grades-3-5-16-9.png.corpimagerendition.xxl.1400.788.png"
-    },
-    {
-      "name": "Thriller",
-      "img":
-          "https://novelsuspects.com/wp-content/uploads/2020/09/EscapeIntoThesePsychologicalThrillers.png"
-    },
-    {
-      "name": "Fantasy",
-      "img":
-          "https://cdn.kpbs.org/dims4/default/f829725/2147483647/strip/true/crop/1750x1078+83+0/resize/1760x1084!/format/webp/quality/90/?url=https%3A%2F%2Fmedia.npr.org%2Fassets%2Fimg%2F2024%2F05%2F08%2Funtitled-design-63-_wide-ceaf458f328eaf47079bfc4c7560c59e97bfde79.jpg"
-    },
-    {
-      "name": "Horror",
-      "img":
-          "https://images.herzindagi.info/her-zindagi-english/images/2024/10/25/article/image/horror-1729868961021.jpg"
-    },
-  ];
-
   static List<Map<String, dynamic>> drawerList = [
     {
-      "name": "Profile",
-      "icon": Icons.person,
-      "route": MaterialPageRoute(
-        builder: (context) => const ProfileView(),
-      ),
+      "name": "Home",
+      "icon": Icons.home,
+      "route": null,
     },
     {
       "name": "Contact Us",
       "icon": Icons.call,
-      "route": MaterialPageRoute(
-        builder: (context) => ContactUsView(),
-      ),
+      "route": () => const ContactUsView(),
     },
     {
       "name": "FAQs",
       "icon": Icons.question_answer,
-      "route": MaterialPageRoute(
-        builder: (context) => const FAQsView(),
-      ),
+      "route": () => const FAQsView(),
     },
     {
       "name": "Terms N Policies",
       "icon": Icons.policy,
-      "route": MaterialPageRoute(
-        builder: (context) => const TermsAndPoliciesView(),
-      ),
+      "route": () => const TermsAndPoliciesView(),
     },
     {
       "name": "Log Out",
       "icon": Icons.logout,
-      "route": MaterialPageRoute(
-        builder: (context) => const LogoutView(),
-      ),
+      "route": () => const LogoutView(),
     },
-  ];
-
-  static List<Map<String, String>> pageArr = [
-    {
-      'title': "Discover a World of Stories",
-      'sub_text':
-          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
-      'img': 'assets/images/on_1.svg',
-    },
-    {
-      'title': "Personalized Just for You",
-      'sub_text':
-          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
-      'img': 'assets/images/on_2.svg',
-    },
-    {
-      'title': "Your Reading, Anytime, Anywhere",
-      'sub_text':
-          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
-      'img': 'assets/images/on_3.svg',
-    }
   ];
 
   static List<Map<String, String>> bookGenresList = [
@@ -247,15 +148,15 @@ class ListData {
   ];
 
   static List<Color> genresColor = [
-    Colors.blue,
-    Colors.deepPurpleAccent,
-    Colors.green,
-    Colors.orange,
-    Colors.pinkAccent,
-    Colors.yellow,
+    Colors.deepPurple,
     Colors.indigo,
+    Colors.pink,
+    Colors.orange,
+    Colors.blue,
+    Colors.yellow,
+    Colors.green,
     Colors.brown,
-    Colors.black,
+    Colors.red,
     Colors.grey,
   ];
 
