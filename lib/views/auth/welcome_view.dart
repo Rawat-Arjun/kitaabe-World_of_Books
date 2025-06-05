@@ -171,6 +171,17 @@ class _WelcomeViewState extends State<WelcomeView> {
                       ),
                     ],
                   ),
+                ),
+                Spacer(),
+                Opacity(
+                  opacity: 0.5,
+                  child: SvgPicture.asset(
+                    'assets/images/welcome.svg',
+                    placeholderBuilder: (context) =>
+                        CircularProgressIndicator(),
+                    width: double.infinity,
+                    height: media.height * 0.4,
+                    fit: BoxFit.fill,
                   const SizedBox(height: 15),
                   _isSigningIn
                       ? CustomButton(

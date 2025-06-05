@@ -23,6 +23,9 @@ class _SignInViewState extends State<SignInView> {
   final textController = TextControllers();
 
   bool isObsecure = true;
+
+  bool isStaySignin = false;
+  bool isSigninButtonPressed = false; 
   bool isSigninButtonPressed = false;
 
   bool _isSigningIn = false;
@@ -84,12 +87,15 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      backgroundColor: Colors.white,
+    
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
