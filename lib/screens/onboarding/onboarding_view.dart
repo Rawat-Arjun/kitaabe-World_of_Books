@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/components/color_extension.dart';
 import 'package:kitaabe/components/list_data.dart';
-import 'package:kitaabe/services/storage/sp_storage_service.dart';
 import 'package:kitaabe/screens/onboarding/get_started_view.dart';
+import 'package:kitaabe/services/storage/sp_storage_service.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -19,22 +20,19 @@ class _OnboardingViewState extends State<OnboardingView> {
   @override
   void initState() {
     super.initState();
-    pageController.addListener(
-      () {
-        page = pageController.page?.round() ?? 0;
-        if (mounted) {
-          setState(() {});
-        }
-      },
-    );
+    pageController.addListener(() {
+      page = pageController.page?.round() ?? 0;
+      if (mounted) setState(() {});
+    });
   }
 
   void nextPageFunction() {
-    if (page < 2) {
-      page = page + 1;
+    if (page < ListData.onboardingPageArr.length - 1) {
+      page += 1;
       pageController.jumpToPage(page);
     } else {
-      Navigator.of(context).push(
+      SpStorageService.setOnboardingSeen(context);
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const GetStartedView(),
         ),
@@ -44,45 +42,47 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context).size;
+    final media = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: PageView.builder(
         controller: pageController,
         itemCount: ListData.onboardingPageArr.length,
         itemBuilder: (context, index) {
-          var onboardingPageList =
-              ListData.onboardingPageArr[index] as Map? ?? {};
+          var pageData = ListData.onboardingPageArr[index] as Map? ?? {};
           return Container(
-            width: mediaQuery.width,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 60,
-            ),
+            width: media.width,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
             child: Column(
               children: [
                 Text(
-                  onboardingPageList['title'].toString(),
+                  pageData['title'].toString(),
                   textAlign: TextAlign.center,
-                  style: textTheme.titleLarge,
+                  style: GoogleFonts.poppins(
+                    color: TColor.primary,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40),
                 Text(
-                  onboardingPageList['sub_text'].toString(),
+                  pageData['sub_text'].toString(),
                   textAlign: TextAlign.center,
-                  style: textTheme.titleMedium,
+                  style: GoogleFonts.poppins(
+                    color: TColor.primaryLight,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40),
                 Opacity(
                   opacity: 0.5,
                   child: SvgPicture.asset(
-                    onboardingPageList['img'].toString(),
+                    pageData['img'].toString(),
                     width: double.infinity,
-                    height: mediaQuery.height * 0.30,
+                    height: media.height * 0.45,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -90,42 +90,38 @@ class _OnboardingViewState extends State<OnboardingView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            SpStorageService.setOnboardingSeen(context);
-                          },
-                          child: Text(
-                            'Skip',
-                            style: textTheme.labelMedium
-                                ?.copyWith(color: TColor.primary),
+                    TextButton(
+                      onPressed: () {
+                        SpStorageService.setOnboardingSeen(context);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const GetStartedView(),
                           ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Text(
+                        'Skip',
+                        style: textTheme.labelMedium
+                            ?.copyWith(color: TColor.primary),
+                      ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: ListData.onboardingPageArr.map(
-                        (e) {
-                          var index = ListData.onboardingPageArr.indexOf(e);
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                            ),
-                            height: 15,
-                            width: 15,
-                            decoration: BoxDecoration(
-                              color: page == index
-                                  ? TColor.primary
-                                  : TColor.primaryLight,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          );
-                        },
-                      ).toList(),
+                      children: List.generate(
+                        ListData.onboardingPageArr.length,
+                        (i) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                            color: page == i
+                                ? TColor.primary
+                                : TColor.primaryLight,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

@@ -18,12 +18,13 @@ void main() async {
 
   WebViewPlatform.instance = AndroidWebViewPlatform();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  @override
   @override
   @override
   Widget build(BuildContext context) {

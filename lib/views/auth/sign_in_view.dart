@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kitaabe/screens/home/ui/main_tab_bar.dart';
 import '../../components/color_extension.dart';
 import '../../components/custom_button.dart';
 import '../../screens/auth/forgot_password_view.dart';
@@ -169,11 +170,11 @@ class _SignInViewState extends State<SignInView> {
                       isSigninButtonPressed = true;
                     });
                     if (mounted) {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Home(),
-                      //   ),
-                      // );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const MainTabBar(),
+                        ),
+                      );
                     }
                     await Future.delayed(
                       Duration(seconds: 1),
