@@ -4,14 +4,9 @@ import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_button.dart';
 import 'package:kitaabe/views/auth/welcome_view.dart';
 
-class GetStartedView extends StatefulWidget {
+class GetStartedView extends StatelessWidget {
   const GetStartedView({super.key});
 
-  @override
-  State<GetStartedView> createState() => _GetStartedViewState();
-}
-
-class _GetStartedViewState extends State<GetStartedView> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -19,7 +14,7 @@ class _GetStartedViewState extends State<GetStartedView> {
       backgroundColor: Colors.white,
       body: Center(
         child: CustomButton(
-          minWidth: media.width * 0.5,
+          minWidth: media.width * 0.6,
           minHeight: media.height * 0.1,
           onPressed: () {
             Navigator.of(context).pushReplacement(
@@ -48,4 +43,5 @@ class _GetStartedViewState extends State<GetStartedView> {
       ),
     );
   }
+}
 }
