@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "192652638838",
+    "project_id": "kitaabe-world-of-books",
+    "storage_bucket": "kitaabe-world-of-books.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192652638838:android:24090fba17e95eaab7bd57",
+        "android_client_info": {
+          "package_name": "com.example.kitaabe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Wwy3juH6qBrdWxr6OXvRn5dqbrskXRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
