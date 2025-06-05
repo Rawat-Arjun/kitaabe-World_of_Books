@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kitaabe/common/color_extension.dart';
-import 'package:kitaabe/common/custom_button.dart';
-import 'package:kitaabe/views/auth/forgot_password_view.dart';
+import '../../components/color_extension.dart';
+import '../../components/custom_button.dart';
+import '../../screens/auth/forgot_password_view.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
