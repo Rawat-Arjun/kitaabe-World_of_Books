@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kitaabe/common/color_extension.dart';
+import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
 import 'package:kitaabe/views/home/home_view.dart';
+import 'package:kitaabe/views/home/drawer/my%20account/my_account_view.dart';
 import 'package:kitaabe/views/search/search_view.dart';
 
 class MainTabBar extends StatefulWidget {
@@ -27,8 +29,8 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
         children: [
           HomeView(),
           SearchView(),
-          Container(),
-          Container(),
+          MyAccountView(),
+          FAQsView(),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

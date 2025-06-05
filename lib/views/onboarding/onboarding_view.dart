@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/views/onboarding/get_started_view.dart';
 
+import '../../common/list_data.dart';
+
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
 
@@ -14,26 +16,6 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   int page = 0;
   final pageController = PageController();
-  List pageArr = [
-    {
-      'title': "Discover a World of Stories",
-      'sub_text':
-          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
-      'img': 'assets/images/on_1.svg',
-    },
-    {
-      'title': "Personalized Just for You",
-      'sub_text':
-          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
-      'img': 'assets/images/on_2.svg',
-    },
-    {
-      'title': "Your Reading, Anytime, Anywhere",
-      'sub_text':
-          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
-      'img': 'assets/images/on_3.svg',
-    }
-  ];
 
   @override
   void initState() {
@@ -66,6 +48,19 @@ class _OnboardingViewState extends State<OnboardingView> {
     final media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: pageController,
+            itemCount: ListData().pageArr.length,
+            itemBuilder: (context, index) {
+              var pObj = ListData().pageArr[index] as Map? ?? {};
+              return Container(
+                width: media.width,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 40,
       body: PageView.builder(
         controller: pageController,
         itemCount: pageArr.length,
@@ -87,6 +82,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     fontSize: 30,
                     fontWeight: FontWeight.w700,
                   ),
+
                 ),
                 SizedBox(
                   height: 40,
@@ -116,6 +112,52 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              GetStartedView(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Skip',
+                                      style: GoogleFonts.poppins(
+                                          color: TColor.primary,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: ListData().pageArr.map(
+                                (e) {
+                                  var index = ListData().pageArr.indexOf(e);
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    height: 15,
+                                    width: 15,
+                                    decoration: BoxDecoration(
+                                      color: page == index
+                                          ? TColor.primary
+                                          : TColor.primaryLight,
+                                      borderRadius: BorderRadius.circular(8),
                         Padding(
                           padding:
                               const EdgeInsets.symmetric(horizontal: 15),
@@ -183,6 +225,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                     ),
                   ],
                 ),
+              );
+            },
+          ),
+        ],
               ],
             ),
           );

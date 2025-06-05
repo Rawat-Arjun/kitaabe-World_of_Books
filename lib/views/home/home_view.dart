@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
 import 'package:kitaabe/common/custom_carousel.dart';
+import 'package:kitaabe/common/list_data.dart';
+import 'package:kitaabe/views/home/drawer/my%20account/my_account_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -11,108 +13,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final bookList = [
-    {
-      "name": "To Kill A Mockingbird",
-      "author": "Harper Lee",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-      "rating": "5",
-    },
-    {
-      "name": "Invisible Man",
-      "author": "Ralph Ellison",
-      "img":
-          "https://m.media-amazon.com/images/I/41Gh5-nfqKL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "img":
-          "https://rukminim2.flixcart.com/image/416/416/kgiaykw0/book/4/2/9/the-great-gatsby-original-imafwqc4fdxy5ymr.jpeg",
-      "rating": "5",
-    },
-    {
-      "name": "The Fault in Our Stars",
-      "author": "John Green",
-      "img":
-          "https://m.media-amazon.com/images/I/51r27MDeQQL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "Lord of The Flies",
-      "author": "William Golding",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/en/9/9b/LordOfTheFliesBookCover.jpg",
-      "rating": "4",
-    },
-  ];
-
-  final genresList = [
-    {
-      "name": "Romance",
-      "img":
-          "https://i0.wp.com/readwithstefani.com/wp-content/uploads/2021/12/collage-1.png"
-    },
-    {
-      "name": "Fiction",
-      "img":
-          "https://www.scholastic.com/content/dam/scholastic/educators/book-lists/080824-nonfiction-grades-3-5-16-9.png.corpimagerendition.xxl.1400.788.png"
-    },
-    {
-      "name": "Thriller",
-      "img":
-          "https://novelsuspects.com/wp-content/uploads/2020/09/EscapeIntoThesePsychologicalThrillers.png"
-    },
-    {
-      "name": "Fantasy",
-      "img":
-          "https://cdn.kpbs.org/dims4/default/f829725/2147483647/strip/true/crop/1750x1078+83+0/resize/1760x1084!/format/webp/quality/90/?url=https%3A%2F%2Fmedia.npr.org%2Fassets%2Fimg%2F2024%2F05%2F08%2Funtitled-design-63-_wide-ceaf458f328eaf47079bfc4c7560c59e97bfde79.jpg"
-    },
-    {
-      "name": "Horror",
-      "img":
-          "https://images.herzindagi.info/her-zindagi-english/images/2024/10/25/article/image/horror-1729868961021.jpg"
-    },
-  ];
-
   final menuKey = GlobalKey<ScaffoldState>();
 
-  final menuList = [
-    {
-      "name": "Home",
-      "icon": Icons.home,
-    },
-    {
-      "name": "My Books",
-      "icon": Icons.book,
-    },
-    {
-      "name": "Recently Read",
-      "icon": Icons.menu_book_sharp,
-    },
-    {
-      "name": "Settings",
-      "icon": Icons.settings,
-    },
-    {
-      "name": "My Account",
-      "icon": Icons.person,
-    },
-    {
-      "name": "Help",
-      "icon": Icons.help,
-    },
-    {
-      "name": "FAQs",
-      "icon": Icons.question_answer,
-    },
-    {
-      "name": "Log Out",
-      "icon": Icons.logout,
-    },
-  ];
   int menuIndex = 0;
 
   @override
@@ -147,32 +49,33 @@ class _HomeViewState extends State<HomeView> {
                   ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: menuList.map(
+                children: ListData().menuList.map(
                   (e) {
-                    int index = menuList.indexOf(e);
-                    return Container(
-                      decoration: menuIndex == index
-                          ? BoxDecoration(
-                              color: TColor.primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: TColor.primary,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            )
-                          : null,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 20,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            menuIndex = index;
-                          });
-                        },
+                    int index = ListData().menuList.indexOf(e);
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          menuIndex = index;
+                        });
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: menuIndex == index
+                            ? BoxDecoration(
+                                color: TColor.primary,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: TColor.primary,
+                                    blurRadius: 10,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                              )
+                            : null,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 20,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -238,18 +141,26 @@ class _HomeViewState extends State<HomeView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: TColor.primaryLight,
-                            radius: 20,
-                            child: Text('AR'),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const MyAccountView(),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: TColor.primaryLight,
+                              radius: 20,
+                              child: Text('AR'),
+                            ),
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Welcome User :)',
+                            'Welcome, Arjun Rawat :)',
                             style: GoogleFonts.poppins(
-                              color: TColor.primaryLight,
+                              color: TColor.subText,
                               fontSize: 15,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Spacer(),
@@ -269,8 +180,8 @@ class _HomeViewState extends State<HomeView> {
                         isRating: false,
                         title: 'Our Top Picks',
                         color: Colors.white,
-                        listLength: bookList.length,
-                        listItem: bookList,
+                        listLength: ListData().bookList.length,
+                        listItem: ListData().bookList,
                       ),
                       SizedBox(height: 15),
                       Row(
@@ -294,9 +205,10 @@ class _HomeViewState extends State<HomeView> {
                             borderRadius: BorderRadius.circular(8)),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: genresList.length,
+                          itemCount: ListData().genresList.length,
                           itemBuilder: (context, index) {
-                            var gObj = genresList[index] as Map? ?? {};
+                            var gObj =
+                                ListData().genresList[index] as Map? ?? {};
                             return Column(
                               children: [
                                 Padding(
@@ -328,8 +240,8 @@ class _HomeViewState extends State<HomeView> {
                         isRating: true,
                         title: 'Best Sellers',
                         color: TColor.text,
-                        listLength: bookList.length,
-                        listItem: bookList,
+                        listLength: ListData().bookList.length,
+                        listItem: ListData().bookList,
                       ),
                     ],
                   ),

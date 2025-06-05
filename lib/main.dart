@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kitaabe/common/color_extension.dart';
+import 'package:kitaabe/views/home/drawer/help/contact%20us/contact_us_view.dart';
+import 'package:kitaabe/views/home/drawer/help/terms%20and%20policies/terms_and_policies_view.dart';
 import 'package:kitaabe/views/home/main_tab_bar.dart';
 import 'package:kitaabe/views/onboarding/onboarding_view.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
             ),
             suffixIconColor: TColor.primary),
       ),
-      home: const MainTabBar(),
+      home: const TermsAndPoliciesView(),
     );
   }
 }

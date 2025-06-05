@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitaabe/common/color_extension.dart';
+import 'package:kitaabe/common/list_data.dart';
 import 'package:kitaabe/views/search/search_focus_view.dart';
 
 class SearchView extends StatefulWidget {
@@ -27,74 +28,10 @@ class _SearchViewState extends State<SearchView> {
     searchController!.dispose();
   }
 
-  final tagList = ['Genres', 'Best Sellers', 'Trending', 'New Release'];
   var selectTag = 0;
 
-  final bookGenresList = [
-    {
-      "name": "Fiction & Sci-Fi",
-      "img":
-          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
-    },
-    {
-      "name": "Mystery & Thriller",
-      "img":
-          "https://novelonmymind.com/wp-content/uploads/2023/03/The-Silent-Patient-by-Alex-Michaelides.jpg"
-    },
-    {
-      "name": "Comedy & Humor",
-      "img":
-          "https://m.media-amazon.com/images/I/51sEKdL7GlL._SY445_SX342_.jpg",
-    },
-    {
-      "name": "Fantasy",
-      "img":
-          "https://ik.imagekit.io/panmac/tr:f-auto,di-placeholder_portrait_aMjPtD9YZ.jpg,w-270/edition/9781035052868.jpg",
-    },
-    {
-      "name": "Romance",
-      "img":
-          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1651585695i/58857822.jpg"
-    },
-    {
-      "name": "Horror",
-      "img": "https://m.media-amazon.com/images/I/715qjNTdYML._SY466_.jpg",
-    },
-    {
-      "name": "Biography",
-      "img":
-          "https://m.media-amazon.com/images/I/41zd1OAciUL._SY445_SX342_.jpg",
-    },
-    {
-      "name": "Personal Development",
-      "img": "https://booksondemand.ma/cdn/shop/files/POM.png",
-    },
-    {
-      "name": "History & Politics",
-      "img": "https://m.media-amazon.com/images/I/61BAecyH6oL._SY466_.jpg",
-    },
-    {
-      "name": "Business & Finance",
-      "img":
-          "https://www.ft.com/__origami/service/image/v2/images/raw/http://ig.ft.com/static/sites/business-book-of-the-year/covers/More_Money_Than_God.jpg?source=ft_ig_business_book_award&width=400&quality=high",
-    },
-  ];
-
-  final genresColor = [
-    Colors.blue,
-    Colors.deepPurpleAccent,
-    Colors.green,
-    Colors.orange,
-    Colors.pinkAccent,
-    Colors.yellow,
-    Colors.indigo,
-    Colors.brown,
-    Colors.black,
-    Colors.grey,
-  ];
-
   List getUniqueColor() {
-    final colors = List.from(genresColor);
+    final colors = List.from(ListData().genresColor);
     colors.shuffle(Random());
     return colors;
   }
@@ -143,9 +80,9 @@ class _SearchViewState extends State<SearchView> {
                 vertical: 20,
               ),
               child: Row(
-                children: tagList.map(
+                children: ListData().tagList.map(
                   (tagName) {
-                    var index = tagList.indexOf(tagName);
+                    var index = ListData().tagList.indexOf(tagName);
                     return Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 0),
@@ -200,7 +137,7 @@ class _SearchViewState extends State<SearchView> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            bookGenresList[index]['img'].toString(),
+                            ListData().bookGenresList[index]['img'].toString(),
                             fit: BoxFit.fill,
                             height: media.width * 0.4,
                             width: media.width * 0.25,
@@ -208,7 +145,7 @@ class _SearchViewState extends State<SearchView> {
                         ),
                         SizedBox(height: 15),
                         Text(
-                          bookGenresList[index]['name'].toString(),
+                          ListData().bookGenresList[index]['name'].toString(),
                           style: GoogleFonts.poppins(
                             fontSize: 15,
                             color: Colors.white,
