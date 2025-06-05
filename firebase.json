@@ -1,0 +1,35 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "kitaabe-world-of-books",
+          "appId": "1:192652638838:android:24090fba17e95eaab7bd57",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "kitaabe-world-of-books",
+          "configurations": {
+            "android": "1:192652638838:android:24090fba17e95eaab7bd57",
+            "web": "1:192652638838:web:1dce56ba0a4b39fab7bd57"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}
