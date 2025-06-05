@@ -77,6 +77,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Splash Screen
 
 ![Splash Screen](assets/screenshots/splash_screen.jpg)
+
 *The opening screen displaying the app logo while loading.*
 
 ---
@@ -84,6 +85,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Auth Screen
 
 ![Auth Screen](assets/screenshots/auth_screen.jpg)
+
 *Allows users to sign in using Google or email.*
 
 ---
@@ -91,6 +93,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Home Screen (Book List)
 
 ![Home Screen](assets/screenshots/home_screen.jpg)
+
 *Browse and explore a wide variety of books.*
 
 ---
@@ -98,6 +101,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Book Detail Screen
 
 ![Book Detail](assets/screenshots/book_detail_screen.jpg)
+
 *Detailed view of a selected book with description and options.*
 
 ---
@@ -105,6 +109,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Book Reading Screen
 
 ![Reading Screen](assets/screenshots/book_read_screen.jpg)
+
 *Read books online with a clean and distraction-free UI.*
 
 ---
@@ -112,6 +117,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Search Functionality
 
 ![Search](assets/screenshots/book_search_screen.jpg)
+
 *Search for books by title, author, or genre.*
 
 ---
@@ -119,6 +125,7 @@ Below are key screens from the app to showcase functionality and design:
 ### Add to favourite
 
 ![Favourite Screen](assets/screenshots/favourite_screen.jpg)
+
 *Save notes and bookmark favorite books for easy access.*
 
 ---
