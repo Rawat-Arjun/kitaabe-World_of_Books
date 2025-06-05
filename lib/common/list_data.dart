@@ -1,7 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:kitaabe/views/home/drawer/contact%20us/contact_us_view.dart';
+import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
+import 'package:kitaabe/views/home/drawer/logout/logout_view.dart';
+import 'package:kitaabe/views/home/drawer/terms%20and%20policies/terms_and_policies_view.dart';
 
 class ListData {
-  final faqs = [
+  static List onboardingPageArr = [
+    {
+      'title': "Discover a World of Stories",
+      'sub_text':
+          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
+      'img': 'assets/images/on_1.svg',
+    },
+    {
+      'title': "Personalized Just for You",
+      'sub_text':
+          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
+      'img': 'assets/images/on_2.svg',
+    },
+    {
+      'title': "Your Reading, Anytime, Anywhere",
+      'sub_text':
+          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
+      'img': 'assets/images/on_3.svg',
+    }
+  ];
+
+  static List<Map<String, String>> faqs = [
     {
       "question": "How do I enable night mode?",
       "answer":
@@ -44,170 +69,35 @@ class ListData {
     },
   ];
 
-  final bookList = [
+  static List<Map<String, dynamic>> drawerList = [
     {
-      "name": "To Kill A Mockingbird",
-      "author": "Harper Lee",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-      "rating": "5",
+      "name": "Home",
+      "icon": Icons.home,
+      "route": null,
     },
     {
-      "name": "Invisible Man",
-      "author": "Ralph Ellison",
-      "img":
-          "https://m.media-amazon.com/images/I/41Gh5-nfqKL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "img":
-          "https://rukminim2.flixcart.com/image/416/416/kgiaykw0/book/4/2/9/the-great-gatsby-original-imafwqc4fdxy5ymr.jpeg",
-      "rating": "5",
-    },
-    {
-      "name": "The Fault in Our Stars",
-      "author": "John Green",
-      "img":
-          "https://m.media-amazon.com/images/I/51r27MDeQQL._SY445_SX342_.jpg",
-      "rating": "4.5",
-    },
-    {
-      "name": "Lord of The Flies",
-      "author": "William Golding",
-      "img":
-          "https://upload.wikimedia.org/wikipedia/en/9/9b/LordOfTheFliesBookCover.jpg",
-      "rating": "4",
-    },
-  ];
-
-  final reviewsList = [
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review":
-          "this is the review by user  this is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the rethis is the review by user this is the review by userthis is the re  this is the review by user this is the review by userthis is the review by userthis is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-    {
-      "book_name": "book name",
-      "author_name": "author name",
-      "review": " this is the review by user",
-      "rating": "4.5",
-      "img": "book image"
-    },
-  ];
-
-  final genresList = [
-    {
-      "name": "Romance",
-      "img":
-          "https://i0.wp.com/readwithstefani.com/wp-content/uploads/2021/12/collage-1.png"
-    },
-    {
-      "name": "Fiction",
-      "img":
-          "https://www.scholastic.com/content/dam/scholastic/educators/book-lists/080824-nonfiction-grades-3-5-16-9.png.corpimagerendition.xxl.1400.788.png"
-    },
-    {
-      "name": "Thriller",
-      "img":
-          "https://novelsuspects.com/wp-content/uploads/2020/09/EscapeIntoThesePsychologicalThrillers.png"
-    },
-    {
-      "name": "Fantasy",
-      "img":
-          "https://cdn.kpbs.org/dims4/default/f829725/2147483647/strip/true/crop/1750x1078+83+0/resize/1760x1084!/format/webp/quality/90/?url=https%3A%2F%2Fmedia.npr.org%2Fassets%2Fimg%2F2024%2F05%2F08%2Funtitled-design-63-_wide-ceaf458f328eaf47079bfc4c7560c59e97bfde79.jpg"
-    },
-    {
-      "name": "Horror",
-      "img":
-          "https://images.herzindagi.info/her-zindagi-english/images/2024/10/25/article/image/horror-1729868961021.jpg"
-    },
-  ];
-
-  final menuList = [
-    {
-      "name": "My Books",
-      "icon": Icons.book,
-    },
-    {
-      "name": "Profile",
-      "icon": Icons.person,
-    },
-    {
-      "name": "Favourite",
-      "icon": Icons.favorite_rounded,
-    },
-    {
-      "name": "Settings",
-      "icon": Icons.settings,
-    },
-    {
-      "name": "Account",
-      "icon": Icons.account_circle,
-    },
-    {
-      "name": "Help",
-      "icon": Icons.info,
+      "name": "Contact Us",
+      "icon": Icons.call,
+      "route": () => const ContactUsView(),
     },
     {
       "name": "FAQs",
       "icon": Icons.question_answer,
+      "route": () => const FAQsView(),
+    },
+    {
+      "name": "Terms N Policies",
+      "icon": Icons.policy,
+      "route": () => const TermsAndPoliciesView(),
     },
     {
       "name": "Log Out",
       "icon": Icons.logout,
+      "route": () => const LogoutView(),
     },
   ];
 
-  final pageArr = [
-    {
-      'title': "Discover a World of Stories",
-      'sub_text':
-          "Delve into a diverse collection of novels, non-fiction, poetry, and more. Whether you're into mysteries, self-help, or classics, there's something for every reader",
-      'img': 'assets/images/on_1.svg',
-    },
-    {
-      'title': "Personalized Just for You",
-      'sub_text':
-          "We understand your taste. Get personalized book recommendations based on your preferences, reading history, and favorite genres",
-      'img': 'assets/images/on_2.svg',
-    },
-    {
-      'title': "Your Reading, Anytime, Anywhere",
-      'sub_text':
-          "Enjoy your books wherever you are. With online reading, bookmarks, and customizable themes, your library is always at your fingertips.",
-      'img': 'assets/images/on_3.svg',
-    }
-  ];
-
-  final tagList = ['Genres', 'Best Sellers', 'Trending', 'New Release'];
-
-  final bookGenresList = [
+  static List<Map<String, String>> bookGenresList = [
     {
       "name": "Fiction & Sci-Fi",
       "img":
@@ -257,16 +147,64 @@ class ListData {
     },
   ];
 
-  final genresColor = [
-    Colors.blue,
-    Colors.deepPurpleAccent,
-    Colors.green,
-    Colors.orange,
-    Colors.pinkAccent,
-    Colors.yellow,
+  static List<Color> genresColor = [
+    Colors.deepPurple,
     Colors.indigo,
+    Colors.pink,
+    Colors.orange,
+    Colors.blue,
+    Colors.yellow,
+    Colors.green,
     Colors.brown,
-    Colors.black,
+    Colors.red,
     Colors.grey,
+  ];
+
+  static List<Map<String, String>> termsAndConditionsList = [
+    {
+      "term": "Introduction",
+      "policy":
+          "Welcome to Kitaabe, an online book reading platform. By using this app, you agree to the following terms and policies.",
+    },
+    {
+      "term": "User Accounts & Responsibilities",
+      "policy":
+          "You must provide accurate information when signing up. Misuse, unauthorized access, or violation of community guidelines may result in account suspension.",
+    },
+    {
+      "term": "Content Usage & Restrictions",
+      "policy":
+          "All book content is for personal use only. You may not copy, distribute, or reproduce any material without permission.",
+    },
+    {
+      "term": "Privacy Policy",
+      "policy":
+          "We collect user data such as email, bookmarks, and reviews to improve user experience. We do not sell or misuse personal data.",
+    },
+    {
+      "term": "Reviews & Community Guidelines",
+      "policy":
+          "Users must ensure that their reviews are respectful and relevant. Any offensive or misleading content may be removed.",
+    },
+    {
+      "term": "Account Deletion & Data Removal",
+      "policy":
+          "You can request to delete your account from the profile settings. Some data may be retained for security and legal reasons.",
+    },
+    {
+      "term": "Disclaimer & Liability",
+      "policy":
+          "This app is provided 'as is' without any warranties. We are not responsible for issues caused by third-party content.",
+    },
+    {
+      "term": "Updates & Changes",
+      "policy":
+          "These terms may be updated from time to time. Continued use of the app indicates acceptance of the new terms.",
+    },
+    {
+      "term": "Contact Information",
+      "policy":
+          "If you have any questions about these terms, please contact us at arjunrawat12121@gmail.com.",
+    },
   ];
 }

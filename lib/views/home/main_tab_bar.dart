@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kitaabe/common/color_extension.dart';
-import 'package:kitaabe/views/home/drawer/faqs/faqs_view.dart';
+import 'package:kitaabe/views/home/drawer/favourite/favourite_view.dart';
 import 'package:kitaabe/views/home/home_view.dart';
-import 'package:kitaabe/views/home/drawer/my%20account/my_account_view.dart';
+import 'package:kitaabe/views/home/drawer/profile/profile_view.dart';
 import 'package:kitaabe/views/search/search_view.dart';
 
 class MainTabBar extends StatefulWidget {
@@ -17,7 +17,10 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(
+      length: 4,
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -27,10 +30,10 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
       body: TabBarView(
         controller: tabController,
         children: [
-          HomeView(),
-          SearchView(),
-          MyAccountView(),
-          FAQsView(),
+          const HomeView(),
+          const SearchView(),
+          const ProfileView(),
+          const FavouriteView(),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -52,7 +55,7 @@ class _MainTabBarState extends State<MainTabBar> with TickerProviderStateMixin {
             ),
             Tab(
               icon: Icon(Icons.person_pin),
-              text: 'Me',
+              text: 'Profile',
             ),
             Tab(
               icon: Icon(Icons.star),
